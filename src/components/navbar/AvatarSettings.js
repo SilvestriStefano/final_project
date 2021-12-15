@@ -1,5 +1,4 @@
-import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material'
-import React from 'react'
+import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 
 export default function AvatarSettings({handleOpenUserMenu,handleCloseUserMenu,handleCloseNavMenu,anchorElUser}) {
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
