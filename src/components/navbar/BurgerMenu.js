@@ -1,6 +1,5 @@
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import React from 'react'
 
 export default function BurgerMenu({handleOpenNavMenu,handleCloseNavMenu,anchorElNav, pages}) {
 
