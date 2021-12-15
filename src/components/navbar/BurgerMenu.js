@@ -1,7 +1,9 @@
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router';
 
-export default function BurgerMenu({handleOpenNavMenu,handleCloseNavMenu,anchorElNav, pages}) {
+export default function BurgerMenu({ handleOpenNavMenu, handleCloseNavMenu, anchorElNav, catMenu }) {
+    const navigateTo = useNavigate();
 
     return (
         <>
@@ -33,9 +35,17 @@ export default function BurgerMenu({handleOpenNavMenu,handleCloseNavMenu,anchorE
                     display: { xs: 'block', md: 'none' },
                 }}
             >
-                {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                    onClick={() => { navigateTo('/') }}
+                >
+                    <Typography textAlign="center">Home</Typography>
+                </MenuItem>
+                {catMenu.map((cat, index) => (
+                    <MenuItem
+                        key={index}
+                        onClick={() => { navigateTo(`/category/${cat.id}`) }}
+                    >
+                        <Typography textAlign="center">{cat.name}</Typography>
                     </MenuItem>
                 ))}
             </Menu>

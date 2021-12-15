@@ -1,11 +1,10 @@
 import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 
 export default function AvatarSettings({handleOpenUserMenu,handleCloseUserMenu,handleCloseNavMenu,anchorElUser}) {
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     return (
         <>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Admin" src=" " />
             </IconButton>
             {/* clicking on the avatar shows dropdown with logout */}
             <Menu
@@ -24,11 +23,9 @@ export default function AvatarSettings({handleOpenUserMenu,handleCloseUserMenu,h
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">Log out</Typography>
                     </MenuItem>
-                ))}
             </Menu>
         </>
     )

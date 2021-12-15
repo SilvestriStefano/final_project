@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid, Container } from '@mui/material';
 import ArticleCard from './ArticleCard';
 
 export default function Articles() {
@@ -12,7 +12,7 @@ export default function Articles() {
     }, [APIposts])
 
     return (
-        <>
+        <Container>
             <Typography variant="h4" sx={{
                 fontWeight: 800,
                 paddingBottom: 3 //theme.spacing(3)
@@ -27,6 +27,6 @@ export default function Articles() {
                 })
                 }
             </Grid>
-        </>
+        </Container>
     )
 }

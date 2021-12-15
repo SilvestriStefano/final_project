@@ -1,21 +1,28 @@
-import { useState, useEffect } from 'react';
-import { AppBar, Box, Toolbar, Container, Button } from '@mui/material';
+import { AppBar, Box, Toolbar, Container, Button, Avatar } from '@mui/material';
 
 import ToggleColorMode from './ToggleColorMode';
 import BurgerMenu from './BurgerMenu';
 import AvatarSettings from './AvatarSettings';
 
 import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 
 export default function Navigation() {
-    const pages = ['Products', 'Pricing', 'Blog'];
-    const [catMenu, setCatMenu]=useState([]);
-    const APIcatMenu= "http://localhost/wp_final_project/index.php/wp-json/wp/v2/categories";
+    const navigateTo = useNavigate();
+    const [loaded, setLoaded] = useState(false);
+
+    const [catMenu, setCatMenu] = useState([]);
+    const APIcatMenu = "http://localhost/wp_final_project/index.php/wp-json/wp/v2/categories";
     useEffect(() => {
-      axios.get(APIcatMenu).then(res=>setCatMenu(res.data))
+        axios.get(APIcatMenu)
+        .then(res => {
+            setCatMenu(res.data);
+            setLoaded(true)
+        })
     }, [])
-    
+
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -34,6 +41,53 @@ export default function Navigation() {
         setAnchorElUser(null);
     };
 
+
+
+    if (!loaded) {
+        return (
+            <AppBar position="static">
+                <Container maxWidth='xl'>
+                    <Toolbar
+                        disableGutters
+                        sx={{
+                            alignContent: 'center',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        </Box>
+
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <Button
+                                onClick={() => { navigateTo('/') }}
+                                sx={{ my: 2, color: 'text.primary', display: 'block' }}
+                            >
+                                Home
+                            </Button>
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'text.primary',
+                            }}
+                        >
+                            <ToggleColorMode />
+                        </Box>
+
+                        <Box >
+                            <Avatar />
+                        </Box>
+
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        )
+    }
+
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl" >
@@ -44,24 +98,29 @@ export default function Navigation() {
                         justifyContent: 'space-between'
                     }}
                 >
-                    {console.log(catMenu)}
                     {/*==================== start mobile menu ============================== */}
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <BurgerMenu
                             handleOpenNavMenu={handleOpenNavMenu}
                             handleCloseNavMenu={handleCloseNavMenu}
                             anchorElNav={anchorElNav}
-                            pages={pages}
+                            catMenu={catMenu}
                         />
                     </Box>
                     {/*==================== end mobile menu ============================== */}
 
                     {/*==================== start desktop pages ============================== */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        {catMenu.map((cat,index) => (
+                        <Button
+                            onClick={() => { navigateTo('/') }}
+                            sx={{ my: 2, color: 'text.primary', display: 'block' }}
+                        >
+                            Home
+                        </Button>
+                        {catMenu.map((cat, index) => (
                             <Button
                                 key={index}
-                                onClick={handleCloseNavMenu}
+                                onClick={() => { navigateTo(`/category/${cat.id}`) }}
                                 sx={{ my: 2, color: 'text.primary', display: 'block' }}
                             >
                                 {cat.name}

@@ -1,8 +1,10 @@
 import { Card, CardActionArea, CardMedia, CardContent, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function ArticleCard({ post, authorId }) {
+    const navigateTo = useNavigate();
 
     const [author, setAuthor] = useState('');
     const APIauthor = "http://localhost/wp_final_project/index.php/wp-json/wp/v2/users?id=" + authorId;
@@ -10,9 +12,12 @@ export default function ArticleCard({ post, authorId }) {
         axios.get(APIauthor)
             .then(res => setAuthor(res.data[0]))
     }, [APIauthor])
-
+    const openArticle = ()=>{
+        navigateTo('/article/'+post.slug);
+    };
+    
     return (
-        <Card sx={{ maxWidth: "100%", borderRadius: "0 0 5% 5%" }}>
+        <Card sx={{ maxWidth: "100%", borderRadius: "0 0 5% 5%" }} onClick={openArticle}>
             <CardActionArea>
                 <CardMedia
                     component="img"

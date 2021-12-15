@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
 import { Typography, Container, Box } from '@mui/material';
 
-export default function Article({ slug }) {
+export default function Article() {
+    let param = useParams();
+    const slug = param.slug;
     const [post, setPost] = useState({});
     const [loaded, setLoaded] = useState(false);
     const [datePosted, setDatePosted] = useState('');
@@ -65,7 +68,7 @@ export default function Article({ slug }) {
             >
             </Typography>
             <Box mb={2}>
-                <img src={post.featured_media_src_url} />
+                <img src={post.featured_media_src_url} alt="featured" />
             </Box>
             <Typography
                 dangerouslySetInnerHTML={{ __html: post.content.rendered }}>
