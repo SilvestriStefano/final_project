@@ -1,11 +1,13 @@
 // import axios from 'axios';
 
 import './App.css';
+import { Route, Routes } from 'react-router';
 import { useMemo, useState } from 'react';
 import { ColorModeContext } from './context/ColorModeContext';
-import { Box, Container, createTheme, ThemeProvider } from '@mui/material';
+import { Box, createTheme, ThemeProvider } from '@mui/material';
 import Navigation from './components/navbar/Navigation';
 import Article from './components/main/Article';
+import Articles from './components/main/Articles';
 import ArticlesByCat from './components/main/ArticlesByCat';
 
 function App() {
@@ -34,19 +36,18 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        {/* appbar */}
         <Navigation />
+        <Routes>
+          <Route path="/" element={<Articles />} />
+          <Route path="/article/:slug" element={<Article />} />
+          <Route path="/category/:catId" element={<ArticlesByCat />} />
+        </Routes>
+
         {/* hero */}
         <Box>
           <Box>Hero</Box>
         </Box>
-        {/* list of blog articles */}
-
-          <Article slug={"an-introduction-to-stonehenge"} />
-        {/* <Container>
-          <ArticlesByCat catId={5} />
-        </Container> */}
-        {/* {posts.map((pst,index)=>(<div key={index} dangerouslySetInnerHTML={{ __html: pst.excerpt.rendered }}></div>))} */}
+        
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
