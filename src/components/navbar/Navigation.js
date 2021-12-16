@@ -133,6 +133,7 @@ export default function Navigation() {
                             Home
                         </Button>
                         {catMenu.map((cat, index) => (
+                            (cat.name !== 'Uncategorized') &&
                             <Button
                                 key={index}
                                 onClick={() => { navigateTo(`/category/${cat.id}`) }}

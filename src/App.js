@@ -1,5 +1,3 @@
-// import axios from 'axios';
-
 import './App.css';
 import { Route, Routes } from 'react-router';
 import { useMemo, useState, useContext } from 'react';
@@ -84,12 +82,6 @@ function App() {
     [mode],
   );
   const [logState] = useContext(LogContext);
-
-  // const [logState, setLogState] = useState(false);
-
-  // const logIn = () => {
-  //   setLogState(true)
-  // };
 
 
   return (

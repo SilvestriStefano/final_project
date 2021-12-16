@@ -41,6 +41,7 @@ export default function BurgerMenu({ handleOpenNavMenu, handleCloseNavMenu, anch
                     <Typography textAlign="center">Home</Typography>
                 </MenuItem>
                 {catMenu.map((cat, index) => (
+                    (cat.name !== 'Uncategorized') &&
                     <MenuItem
                         key={index}
                         onClick={() => { navigateTo(`/category/${cat.id}`) }}
