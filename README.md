@@ -13,3 +13,7 @@ I chose to recreate (part of) The British Museum blog.
 ### How it is made
 
 The project required the combined use of React and Wordpress: the front-end is built with React which uses the WP Rest API to display the content managed by WordPress.
+
+## Things left to do
+* front-end form validation
+* add comments functionality (?)
