@@ -12,7 +12,9 @@ export default function Articles() {
     }, [APIposts])
 
     return (
-        <Container>
+        <Container sx={{
+            mt:2
+        }}>
             <Typography variant="h4" sx={{
                 fontWeight: 800,
                 paddingBottom: 3 //theme.spacing(3)

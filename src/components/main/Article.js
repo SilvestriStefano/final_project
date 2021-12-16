@@ -22,7 +22,9 @@ export default function Article() {
     if (!loaded) {
         return (
 
-            <Container>
+            <Container sx={{
+                mt:2
+            }}>
                 <Typography
                     variant="h4"
                     sx={{
@@ -39,12 +41,14 @@ export default function Article() {
 
 
     return (
-        <Container>
+        <Container sx={{
+            mt:2
+        }}>
             <Typography
                 variant="h4"
                 sx={{
                     fontWeight: 800,
-                    paddingBottom: 3 //theme.spacing(3)
+                    paddingBottom: 3
                 }}
                 dangerouslySetInnerHTML={{ __html: post.title.rendered }}
             >
@@ -53,7 +57,7 @@ export default function Article() {
                 variant="subtitle1"
                 sx={{
                     fontStyle: 'italic',
-                    paddingBottom: 3 //theme.spacing(3)
+                    paddingBottom: 3
                 }}
                 dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
             >
@@ -62,9 +66,9 @@ export default function Article() {
                 variant="subtitle2"
                 component="p"
                 sx={{
-                    paddingBottom: 3 //theme.spacing(3)
+                    paddingBottom: 3
                 }}
-                dangerouslySetInnerHTML={{ __html: datePosted }}
+                dangerouslySetInnerHTML={{ __html: `Published on ${datePosted}` }}
             >
             </Typography>
             <Box mb={2}>
