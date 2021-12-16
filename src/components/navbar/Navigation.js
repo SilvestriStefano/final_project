@@ -1,5 +1,4 @@
 import { AppBar, Box, Toolbar, Container, Button, Avatar } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
 import ToggleColorMode from './ToggleColorMode';
 import BurgerMenu from './BurgerMenu';
@@ -10,33 +9,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 
-const useStyles = makeStyles((theme) => ({
-    toolBar: {
-        alignContent: 'center',
-        justifyContent: 'space-between'
-    },
-    boxMobile: {
-        display: {
-            xs: 'flex',
-            md: 'none'
-        }
-    },
-    boxDesktop: {
-        display: {
-            xs: 'none',
-            md: 'flex'
-        }
-    },
-    navButton: {
-        display: 'block',
-        my: 2
-    }
-}))
-
-
 export default function Navigation() {
     const navigateTo = useNavigate();
-    const [loaded, setLoaded] = useState(false);
+    const [loadedCat, setLoadedCat] = useState(false);
 
     const [catMenu, setCatMenu] = useState([]);
     const APIcatMenu = "http://localhost/wp_final_project/index.php/wp-json/wp/v2/categories";
@@ -44,10 +19,10 @@ export default function Navigation() {
         axios.get(APIcatMenu)
             .then(res => {
                 setCatMenu(res.data);
-                setLoaded(true)
+                setLoadedCat(true)
             })
     }, [])
-
+    
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -57,30 +32,31 @@ export default function Navigation() {
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
 
-
-
-    const classes = useStyles();
-    if (!loaded) {
+    if (!loadedCat) {
         return (
             <AppBar position="static">
                 <Container maxWidth='xl'>
                     <Toolbar
                         disableGutters
-                        className={classes.toolBar}
+                        sx={{
+                            alignContent: 'center',
+                            justifyContent: 'space-between'
+                        }}
                     >
                         <Box sx={{ display: 'flex' }}>
                             <Button
                                 onClick={() => { navigateTo('/') }}
-                                className={classes.navButton}
+                                sx={{
+                                    display: 'block',
+                                    my: 2
+                                }}
                             >
                                 Home
                             </Button>
@@ -113,7 +89,10 @@ export default function Navigation() {
             <Container maxWidth="xl" >
                 <Toolbar
                     disableGutters
-                    className={classes.toolBar}
+                    sx={{
+                        alignContent: 'center',
+                        justifyContent: 'space-between'
+                    }}
                 >
                     {/*==================== start mobile menu ============================== */}
                     <Box
@@ -123,8 +102,6 @@ export default function Navigation() {
                                 md: 'none'
                             }
                         }}
-
-                        // className={classes.boxMobile}
                     >
                         <BurgerMenu
                             handleOpenNavMenu={handleOpenNavMenu}
@@ -137,12 +114,21 @@ export default function Navigation() {
 
                     {/*==================== start desktop pages ============================== */}
                     <Box
-                        className={classes.boxDesktop}
+                        // className={classes.boxDesktop}
+                        sx={{
+                            display: {
+                                xs: 'none',
+                                md: 'flex'
+                            }
+                        }}
                     >
                         <Button
                             onClick={() => { navigateTo('/') }}
-                            className={classes.navButton}
-                            sx={{color:'text.primary'}}
+                            sx={{
+                                display: 'block',
+                                my: 2,
+                                color:'text.primary'
+                            }}
                         >
                             Home
                         </Button>
@@ -150,8 +136,11 @@ export default function Navigation() {
                             <Button
                                 key={index}
                                 onClick={() => { navigateTo(`/category/${cat.id}`) }}
-                                className={classes.navButton}
-                                sx={{color:'text.primary'}}
+                                sx={{
+                                    display: 'block',
+                                    my: 2,
+                                    color:'text.primary'
+                                }}
                             >
                                 {cat.name}
                             </Button>
@@ -178,7 +167,6 @@ export default function Navigation() {
                         <AvatarSettings
                             handleOpenUserMenu={handleOpenUserMenu}
                             handleCloseUserMenu={handleCloseUserMenu}
-                            handleCloseNavMenu={handleCloseNavMenu}
                             anchorElUser={anchorElUser}
                         />
                     </Box>
