@@ -29,8 +29,9 @@ export default function ArticlesByCat() {
 
     if (!loaded) {
         return (
-
-            <Container>
+            <Container sx={{
+                mt:2
+            }}>
                 <Typography
                     variant="h4"
                     sx={{
@@ -46,7 +47,9 @@ export default function ArticlesByCat() {
     }
 
     return (
-        <Container>
+        <Container sx={{
+            mt:2
+        }}>
             <Typography variant="h4" sx={{
                 fontWeight: 800,
                 paddingBottom: 3 //theme.spacing(3)
