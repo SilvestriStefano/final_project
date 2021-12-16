@@ -4,18 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { LogProvider } from './context/LogContext';
 
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-
-      <LogProvider>
-        <App />
-      </LogProvider>
-
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
