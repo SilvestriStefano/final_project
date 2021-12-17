@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { UserDataContext } from '../../context/UserContext';
 import { LogContext } from '../../context/LogContext';
 
@@ -19,7 +19,10 @@ export default function Login({ toRegister }) {
     const [, setLoggedUser] = useContext(UserDataContext);
     const [, setLogState] = useContext(LogContext);
 
-    const login=()=>{
+    const usernameInput = useRef(null);
+    const passwordInput = useRef(null);
+
+    const login = () => {
         setLogState(true)
     };
 
@@ -31,74 +34,84 @@ export default function Login({ toRegister }) {
             username: data.get('username'),
             password: data.get('password')
         }).then(response => {
-            if(response.status === 200) {
+            if (response.status === 200) {
                 setLoggedUser({
                     username: response.data.user_nicename,
-                token: response.data.token
+                    token: response.data.token
                 });
                 login()
+            } else {
+                usernameInput.current.childNodes[0].classList.add('Mui-error');
+                usernameInput.current.childNodes[1].classList.add('Mui-error');
+                passwordInput.current.childNodes[0].classList.add('Mui-error');
+                passwordInput.current.childNodes[1].classList.add('Mui-error');
             }
-        }).catch (response=> {
-                console.log(response.message)
-            })
+        }).catch(response => {
+            usernameInput.current.childNodes[0].classList.add('Mui-error');
+            usernameInput.current.childNodes[1].classList.add('Mui-error');
+            passwordInput.current.childNodes[0].classList.add('Mui-error');
+            passwordInput.current.childNodes[1].classList.add('Mui-error');
+        })
     };
 
-return (
-    <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-            sx={{
-                marginTop: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Sign in
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                    autoFocus
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                >
-                    Sign In
-                </Button>
-                <Grid container>
-                    <Grid item>
-                        <Button onClick={toRegister} >
-                            Don't have an account? Sign Up
-                        </Button>
+    return (
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
+                        autoFocus
+                        ref={usernameInput}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        ref={passwordInput}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item>
+                            <Button onClick={toRegister} >
+                                Don't have an account? Sign Up
+                            </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Box>
             </Box>
-        </Box>
 
-    </Container>
-);
+        </Container>
+    );
 }
